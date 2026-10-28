@@ -1,0 +1,24 @@
+# Levanta ambas APIs en local:  docker compose up --build
+# Luego abre http://localhost:3000
+services:
+  node-api:
+    build: ./node-api
+    environment:
+      PORT: 3001
+      JWT_SECRET: ${JWT_SECRET:?define JWT_SECRET en .env}
+    ports:
+      - "3001:3001"
+
+  go-api:
+    build: ./go-api
+    environment:
+      PORT: 3000
+      JWT_SECRET: ${JWT_SECRET}
+      AUTH_USER: ${AUTH_USER:?define AUTH_USER en .env}
+      AUTH_PASSWORD: ${AUTH_PASSWORD:?define AUTH_PASSWORD en .env}
+      # Dentro de la red de Docker, el servicio se resuelve por su nombre.
+      STATS_API_URL: http://node-api:3001
+    ports:
+      - "3000:3000"
+    depends_on:
+      - node-api

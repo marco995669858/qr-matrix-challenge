@@ -1,0 +1,33 @@
+# Blueprint de Render: despliega ambas APIs como contenedores Docker.
+# Render construye las imágenes desde este repositorio (no hace falta Docker local).
+services:
+  - type: web
+    name: matrix-stats-api
+    runtime: docker
+    plan: free
+    dockerContext: ./node-api
+    dockerfilePath: ./node-api/Dockerfile
+    healthCheckPath: /health
+    envVars:
+      - key: JWT_SECRET
+        generateValue: true # Render genera un secreto aleatorio
+
+  - type: web
+    name: matrix-qr-api
+    runtime: docker
+    plan: free
+    dockerContext: ./go-api
+    dockerfilePath: ./go-api/Dockerfile
+    healthCheckPath: /health
+    envVars:
+      - key: JWT_SECRET
+        fromService: # mismo secreto que la API de Node
+          type: web
+          name: matrix-stats-api
+          envVarKey: JWT_SECRET
+      - key: STATS_API_URL
+        sync: false # se completa con la URL pública de matrix-stats-api
+      - key: AUTH_USER
+        sync: false
+      - key: AUTH_PASSWORD
+        sync: false
