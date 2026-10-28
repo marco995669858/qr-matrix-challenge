@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Factorización QR</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <main>
+    <header>
+      <h1>Factorización QR + estadísticas</h1>
+      <p class="muted">API Go (Fiber) → API Node.js (Express)</p>
+    </header>
+
+    <!-- Paso 1: login para obtener el JWT -->
+    <section id="login-section" class="card">
+      <h2>Iniciar sesión</h2>
+      <form id="login-form">
+        <label>Usuario <input name="username" autocomplete="username" required></label>
+        <label>Contraseña <input name="password" type="password" autocomplete="current-password" required></label>
+        <button type="submit">Entrar</button>
+      </form>
+    </section>
+
+    <!-- Paso 2: enviar la matriz -->
+    <section id="matrix-section" class="card" hidden>
+      <div class="row-between">
+        <h2>Matriz de entrada</h2>
+        <button id="logout" class="link">Cerrar sesión</button>
+      </div>
+      <p class="muted">Una fila por línea; números separados por espacios o comas. También se acepta JSON
+        (<code>[[1,2],[3,4]]</code>).</p>
+      <form id="matrix-form">
+        <textarea id="matrix-input" rows="5" spellcheck="false">12 -51 4
+6 167 -68
+-4 24 -41</textarea>
+        <div class="examples">
+          Ejemplos:
+          <button type="button" data-example="12 -51 4&#10;6 167 -68&#10;-4 24 -41">3×3</button>
+          <button type="button" data-example="1 2&#10;3 4&#10;5 6">3×2</button>
+          <button type="button" data-example="1 2 3&#10;4 5 6">2×3</button>
+          <button type="button" data-example="2 0&#10;0 3">diagonal</button>
+        </div>
+        <button type="submit">Calcular</button>
+      </form>
+    </section>
+
+    <p id="error" class="error" role="alert" hidden></p>
+
+    <!-- Paso 3: resultados -->
+    <section id="results" hidden>
+      <div class="card">
+        <h2>Estadísticas <span class="muted">(Q y R)</span></h2>
+        <div id="stats" class="stats"></div>
+      </div>
+      <div class="matrices">
+        <div class="card">
+          <h2>Q <span class="muted">ortogonal</span></h2>
+          <div id="matrix-q"></div>
+        </div>
+        <div class="card">
+          <h2>R <span class="muted">triangular superior</span></h2>
+          <div id="matrix-r"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+
+</html>
