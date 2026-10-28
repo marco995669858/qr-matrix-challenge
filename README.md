@@ -11,8 +11,8 @@ Incluye también los opcionales: **frontend**, **seguridad con JWT** y **pruebas
 
 | Recurso | URL |
 |---|---|
-| Frontend + API Go | `https://<tu-servicio-go>.onrender.com` |
-| API Node | `https://<tu-servicio-node>.onrender.com` |
+| Frontend + API Go | https://matrix-qr-api.onrender.com |
+| API Node | https://matrix-stats-api.onrender.com |
 
 > Las credenciales de acceso se envían por correo. El plan gratuito de Render "duerme" los servicios inactivos, así que la primera petición puede tardar ~1 minuto.
 
